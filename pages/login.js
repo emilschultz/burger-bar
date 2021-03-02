@@ -1,8 +1,12 @@
 import Link from 'next/link';
+import NavBar from '../components/NavBar';
+import GlobalStyle from '../components/GlobalStyle';
 
 export default function login() {
   return(
     <>
+      <GlobalStyle />
+      <NavBar />
       <h1>Login</h1>
       <form>
         <label htmlFor="e-mail">E-mail</label>

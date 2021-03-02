@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import NavnbarStyle from '../NavBarStyle';
 
 export default function NavBar() {
   return(
-    <ul>
+    <NavnbarStyle>
       <li>
         <Link href="/">
           <a>Home</a>
@@ -20,6 +21,6 @@ export default function NavBar() {
           <a>Sign Up</a>
         </Link>
       </li>
-    </ul>
+    </NavnbarStyle>
   )
 }
