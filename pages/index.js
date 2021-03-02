@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import NavBar from '../components/NavBar';
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
         <title>Børres Burger</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Navbar />
 
       <main as="main">
         <section>
