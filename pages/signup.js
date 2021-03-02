@@ -5,10 +5,10 @@ export default function signup() {
     <>
       <h1>Sign up here</h1>
       <form>
-        <label>E-mail</label>
+        <label htmlFor="e-mail">E-mail</label>
         <input type="text" placeholder="e-mail" name="e-mail" required></input>
 
-        <label>Password</label>
+        <label htmlFor="password">Password</label>
         <input type="text" placeholder="password" name="password"></input>
 
         <button type="submit">Create user</button>
