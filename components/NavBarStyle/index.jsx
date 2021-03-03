@@ -6,11 +6,12 @@ const NavnbarStyle = styled.ul`
   justify-content: flex-start;
   list-style-type: none; 
   color: #000000;
+  padding: 0;
 
   li {
-    margin: 0, 5rem;
+    margin: 0 2rem 0 0;
   }
-  
+   
   a {
     color: #000000;
     text-decoration: none;
