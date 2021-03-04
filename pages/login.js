@@ -8,6 +8,7 @@ export default function login() {
       <GlobalStyle />
       <NavBar />
       <h1>Login</h1>
+      
       <form>
         <label htmlFor="e-mail">E-mail</label>
         <input type="text" placeholder="e-mail" name="e-mail" required></input>

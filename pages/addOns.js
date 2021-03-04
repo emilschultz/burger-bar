@@ -22,7 +22,6 @@ AddOns.getInitialProps = async () => {
     const addOnsCollection = await firebaseInstance.firestore().collection('add-ons');
     const addOnsData = await addOnsCollection.get();
 
-
     let addOns = [];
     addOnsData.forEach(addOn => {
       addOns.push({
