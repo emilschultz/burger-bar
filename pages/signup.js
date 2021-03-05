@@ -17,7 +17,7 @@ export default function signup() {
 
     try {
       await firebaseInstance.auth().createUserWithEmailAndPassword(email, password)
-      console.log("Du har lavet et password! tiløk")
+      console.log("Du har lavet en bruger! tiløk")
     } 
     catch(error) {
       setError(error.message)

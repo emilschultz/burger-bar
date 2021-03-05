@@ -4,18 +4,24 @@ function Burgers({ burgers, error }) {
   return(
     <main>
       <h1>Burgers</h1>
-      <ul>
+      <div>
         {burgers.map(item => {
           return(
-            <li key={item.id}>
-              {JSON.stringify(item)}
-            </li>
+            <div key={item.id}>
+              <h1>{item.name}</h1>
+              <p>{item.description}</p>
+              <p>{item.price}</p>
+              <button>+</button>
+            </div>
           )
         })}
-      </ul>
+      </div>
     </main>
   )
 }
+
+
+
 
 Burgers.getInitialProps = async () => {
   try {

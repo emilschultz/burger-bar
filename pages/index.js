@@ -1,8 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import firebaseInstance from '../config/firebase';
+
 import NavBar from '../components/NavBar';
 import GlobalStyle from '../components/GlobalStyle';
-import firebaseInstance from '../config/firebase';
+import PreviewMenu from '../components/PreviewMenu';
+
 
 export default function Home({ burger, error }) {
   if (error !== undefined) {
@@ -28,6 +31,8 @@ export default function Home({ burger, error }) {
           
           <h1>Hi!</h1>
           <h2>Welcome to Børre's Burgers</h2>
+          <p>Have a look at the menu and log in to order. <br/>
+            If you don't have an account, click the sign up button</p>
 
           <Link href="/login">
             <button>Login</button>
@@ -37,6 +42,8 @@ export default function Home({ burger, error }) {
           </Link>
 
         </section>
+
+        {/* <PreviewMenu /> */}
       </main>
     </>
 
