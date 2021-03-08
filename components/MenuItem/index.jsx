@@ -1,51 +1,15 @@
-import firebaseInstance from '../../config/firebase';
+import React from 'react';
 
-function MenuItem({ burgers, error }) {
+function MenuItem() {
   return(
     <div>
-      {/* <img></img>
+      <img></img>
       <h1>Bacon burger</h1>
       <p>en burger med...</p>
       <p>120kr</p>
-      <button>+</button> */}
-
-<ul>
-        {burgers.map(item => {
-          return(
-            <li key={item.id}>
-              {JSON.stringify(item)}
-            </li>
-          )
-        })}
-        </ul>
-
-
+      <button>+</button>
     </div>
   )
 }
-
-MenuItem.getInitialProps = async () => {
-  try {
-    const burgersCollection = await firebaseInstance.firestore().collection('burgers');
-    const burgersData = await burgersCollection.get();
-
-    let burgers = [];
-
-    burgersData.forEach(burger => {
-    burgers.push({
-        id: burger.id,
-        ...burger.data()
-      });
-    });
-
-    return { burgers }
-
-
-  }catch(error){
-    return {
-      error: error.message
-    };
-  }
-};
 
 export default MenuItem;

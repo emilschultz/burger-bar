@@ -11,18 +11,19 @@ export default function login() {
   const [error, setError] = useState(null);
 
   const handleSubmit = async(data) => {
+    data.preventDefault();
     console.log("Form data = ", data);
-    
+
     try {
       await firebaseInstance.auth().signInWithEmailAndPassword(email, password)
-      console.log("Du er logget ind! Tiløk!")
+      console.log("Du er logget ind! Tiløk!");
     }
     catch(error) {
       setError(error.message)
       console.log("Log in failed")
     }
+   
   }
-
 
 
   return(
@@ -48,11 +49,11 @@ export default function login() {
           required
           />
 
-        <button type="submit">Login</button>
-        <Link href="/">
-          <button type="button">Cancel</button>
-        </Link>
+          <button type="submit">Login</button>
 
+          <Link href="/">
+            <button type="button">Cancel</button>
+          </Link>
 
       </form>
     </>

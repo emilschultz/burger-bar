@@ -12,9 +12,9 @@ export default function Home({ burger, error }) {
     return (
         <p>En fejl er opstået: {error}</p>
     )
-
   }
   console.log(burger)
+
   return (
     
     <>
