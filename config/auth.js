@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import firebase from "../utils/firebase";
+import firebase from "../config/firebase";
 import nookies from "nookies";
 
 const AuthContext = createContext({ user: null });
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
