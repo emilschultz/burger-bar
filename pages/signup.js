@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import {useRouter} from 'next/router';
+
 import firebase from '../config/firebase';
 import { useState } from 'react';
 
@@ -13,12 +15,15 @@ export default function signup() {
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null); 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const router = useRouter();
+
+  const handleSubmit = async (data) => {
 
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      const uid = user.uid
       console.log("Du har lavet en bruger! tiløk")
+      router.push('/login');
     } 
     catch(error) {
       setError(error.message)
@@ -39,10 +44,9 @@ export default function signup() {
         <input 
           type="text" 
           name="email" 
-          placeholder="e-mail"           
+          placeholder="e-mail"
           onChange={event => setEmail(event.target.value)} 
         />
-
 
         <label htmlFor="password">Password</label>
         <input 
@@ -52,11 +56,16 @@ export default function signup() {
           onChange={event => setPassword(event.target.value)} 
           />
 
-        <button type="submit">Create user</button>
+        <Link href="/login">
+          <button type="submit">Create user</button>
+        </Link>
+
         <Link href="/">
           <button type="button">Cancel</button>
         </Link>
+
         <br/>
+
         <Link href="/login">
           <button>Do you already have a user? Log in</button>
         </Link>

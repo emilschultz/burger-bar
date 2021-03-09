@@ -1,9 +1,12 @@
-import AuthProvider from "../config/auth"
+import AuthProvider from "../config/auth";
+import { Cart } from '../context/CartContext';
 
 function MyApp({ Component, pageProps }) {
   return (
   <AuthProvider>
-    <Component {...pageProps} />
+    <Cart>
+      <Component {...pageProps} />
+    </Cart>
   </AuthProvider>
   )
 }

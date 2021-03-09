@@ -21,6 +21,31 @@ export default function NavBar() {
           <a>Sign Up</a>
         </Link>
       </li>
+      <li style={{
+        fontWeight: "bold",
+        fontStyle: "italic",
+        textDecoration: "underline",
+        color: "red"
+      }}>
+        Menu:
+      </li>
+      <li>
+        <Link href="/burgers">
+          <a>Burgers</a>
+        </Link>
+      </li>
+
+      <li>
+        <Link href="/drinks">
+          <a>Drinks</a>
+        </Link>
+      </li>
+      
+      <li>
+        <Link href="/addons">
+          <a>Add Ons</a>
+        </Link>
+      </li>
     </NavBarStyle>
   )
 }
