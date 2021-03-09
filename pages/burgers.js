@@ -1,73 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import firebase from '../config/firebase';
 import NavBar from '../components/NavBar';
 import GlobalStyle from '../components/GlobalStyle';
 
 function Burgers() {
 
-  const comments = [
-  // const fetchBurgers = async () => {
-  //   try {
-  //     const burgersCollection = await firebase.firestore().collection('burgers');
-  //     const burgersData = await burgersCollection.get();
-   
-  //     let burgers = [];
-  //     burgersData.forEach(burger => {
-  //       burgers.push({
-  //         id: burger.id,
-  //         ...burger.data()
-  //       });
-  //     });
-  
-  //     return { burgers }
-  //   } catch (error) {
-  //     return {
-  //       error: error.message
-  //     };
+  let [burgers, setBurgers] = useState([]); 
 
-
-
-  // Burgers.getInitialProps = async () => {
-//   try {
-//     const burgersCollection = await firebase.firestore().collection('burgers');
-//     const burgersData = await burgersCollection.get();
- 
-//     let burgers = [];
-//     burgersData.forEach(burger => {
-//       burgers.push({
-//         id: burger.id,
-//         ...burger.data()
-//       });
-//     });
-
-//     return { burgers }
-//   } catch (error) {
-//     return {
-//       error: error.message
-//     };
-//   }
-// }
-  // 
-
-  ]
-
-  // DENNE VIRKER! DATA BLIVER HENTET MEN KUN I KONSOLLEN!
-  let burgers = []; 
-
-  useEffect(() => {
-  firebase.firestore().collection('burgers')
-  .onSnapshot((querySnapshot) => {
-    querySnapshot.forEach((burger) => {
-      burgers.push({
-        id: burger.id,
-        ...burger.data()
-      })
-      // return { burgers }
+  useEffect(()=>{
+    firebase.firestore().collection('burgers')
+    .onSnapshot((querySnapshot) => {
+      setBurgers(querySnapshot.docs.map(burger => burger.data()));
     });
-  })
   }, [])
-
-  console.log(burgers);
 
   const burgerList = burgers.map(burger => {
     return(
