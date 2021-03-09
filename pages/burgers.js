@@ -50,7 +50,6 @@ function Burgers() {
   // 
 
   ]
-  console.log(comments)
 
   // DENNE VIRKER! DATA BLIVER HENTET MEN KUN I KONSOLLEN!
   let burgers = []; 
