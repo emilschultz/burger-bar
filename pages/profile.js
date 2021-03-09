@@ -20,18 +20,20 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <div>
     <GlobalStyle />
     <div>
       <p>Profile</p>
       <button onClick={handleSignout}>Sign out</button>
       {userContext && (
         <>
+          <h1>Username:</h1>
           <p>{userContext.email}</p>
+          <h1>Password:</h1>
           <p>{userContext.uid}</p>
         </>
       )}
     </div>
-    </>
+    </div>
   );
 };
