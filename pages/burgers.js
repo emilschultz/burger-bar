@@ -1,46 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import firebaseInstance from '../config/firebase';
+import React, { useEffect } from 'react';
+import firebase from '../config/firebase';
 import NavBar from '../components/NavBar';
 import GlobalStyle from '../components/GlobalStyle';
 
-function Burgers({ burgers, error }) {
-  console.log(burgers)
+function Burgers() {
+
+  const comments = [
+  // const fetchBurgers = async () => {
+  //   try {
+  //     const burgersCollection = await firebase.firestore().collection('burgers');
+  //     const burgersData = await burgersCollection.get();
+   
+  //     let burgers = [];
+  //     burgersData.forEach(burger => {
+  //       burgers.push({
+  //         id: burger.id,
+  //         ...burger.data()
+  //       });
+  //     });
+  
+  //     return { burgers }
+  //   } catch (error) {
+  //     return {
+  //       error: error.message
+  //     };
 
 
-  // const [cart, setCart] = useState([]);
-  let cart = [];
 
+  // Burgers.getInitialProps = async () => {
+//   try {
+//     const burgersCollection = await firebase.firestore().collection('burgers');
+//     const burgersData = await burgersCollection.get();
+ 
+//     let burgers = [];
+//     burgersData.forEach(burger => {
+//       burgers.push({
+//         id: burger.id,
+//         ...burger.data()
+//       });
+//     });
 
-  function addItem(event) {
-    // Bruger .find() til at finde frem til id'et på det objekt jeg klikker på og pusher dette til cart
-    const burgerFound = burgers.find(newBurger => newBurger.id === event.target.id)
-    let name = burgerFound.name
-    let price = burgerFound.price
-    let id = burgerFound.id
+//     return { burgers }
+//   } catch (error) {
+//     return {
+//       error: error.message
+//     };
+//   }
+// }
+  // 
 
-    let item = {
-      name,
-      price,
-      qty: 1,
-      id 
-  }
-  cart.push(item);
-  console.log(cart)
-  }
+  ]
+  console.log(comments)
 
+  // DENNE VIRKER! DATA BLIVER HENTET MEN KUN I KONSOLLEN!
+  let burgers = []; 
 
-  const burgerList = burgers.map(item => {
-    return(
-      <div key={item.id}>
-        <h1>{item.name}</h1>
-        <p>{item.description}</p>
-        <p>{item.price}</p>
-        <button onClick={addItem}>+</button>
-      </div> 
-    )
+  useEffect(() => {
+  firebase.firestore().collection('burgers')
+  .onSnapshot((querySnapshot) => {
+    querySnapshot.forEach((burger) => {
+      burgers.push({
+        id: burger.id,
+        ...burger.data()
+      })
+      // return { burgers }
+    });
   })
+  }, [])
 
+  console.log(burgers);
 
+  const burgerList = burgers.map(burger => {
+    return(
+      <div key={burger.id}>
+        <h1>{burger.name}</h1>
+        <p>{burger.description}</p>
+        <p>{burger.price}</p>
+        <button>+</button>
+      </div> 
+    );
+  });
 
   return(
     <>
@@ -54,26 +93,4 @@ function Burgers({ burgers, error }) {
     </>
   )
 }
-
-Burgers.getInitialProps = async () => {
-  try {
-    const burgersCollection = await firebaseInstance.firestore().collection('burgers');
-    const burgersData = await burgersCollection.get();
- 
-    let burgers = [];
-    burgersData.forEach(burger => {
-      burgers.push({
-        id: burger.id,
-        ...burger.data()
-      });
-    });
-
-    return { burgers }
-  } catch (error) {
-    return {
-      error: error.message
-    };
-  }
-}
-
 export default Burgers;
