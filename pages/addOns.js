@@ -1,44 +1,42 @@
-import firebaseInstance from '../config/firebase';
+import firebase from '../config/firebase';
+import { useEffect, useState } from 'react';
 
-function AddOns({ addOns, error }) {
+import GlobalStyle from '../components/GlobalStyle';
+import NavBar from '../components/NavBar';
+
+function AddOns() {
+  
+  let [addOns, setAddOns] = useState([]); 
+
+  useEffect(()=>{
+    firebase.firestore().collection('add-ons')
+    .onSnapshot((querySnapshot) => {
+      setAddOns(querySnapshot.docs.map(addon => addon.data()));
+    });
+  }, [])
+
+  const addOnsList = addOns.map(addon => {
+    return(
+      <div key={addon.id}>
+        <h1>{addon.name}</h1>
+        <p>{addon.description}</p>
+        <p>{addon.price} kr</p>
+        <button>+</button>
+      </div> 
+    );
+  });
+
   return(
-    <main>
-      <h1>Add Ons</h1>
-      <ul>
-        {addOns.map(item => {
-          return(
-            <li key={item.id}>
-              {JSON.stringify(item)}
-            </li>
-          )
-        })}
-      </ul>
-    </main>
+    <>
+      <GlobalStyle />
+      <NavBar />
+      <main>
+        <h1>Add Ons</h1>
+          {addOnsList}
+        <h1>Cart</h1>
+      </main>
+    </>
   )
 }
-
-AddOns.getInitialProps = async () => {
-  try {
-    const addOnsCollection = await firebaseInstance.firestore().collection('add-ons');
-    const addOnsData = await addOnsCollection.get();
-
-    let addOns = [];
-    addOnsData.forEach(addOn => {
-      addOns.push({
-        id: addOn.id,
-        ...addOn.data()
-      });
-    });
-
-    return { addOns }
-
-  } catch (error) {
-    return {
-      error: error.message
-    };
-  }
-}
-
-
 
 export default AddOns;
