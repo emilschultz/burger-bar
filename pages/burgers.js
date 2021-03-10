@@ -40,7 +40,7 @@ function Burgers() {
   const checkout = async () => {
     console.log(cart)
     try {
-      await firebase.database().ref('orders').set({
+      await firebase.database().ref('orders').push({
         neworder: cart.productsInCart
       })
     } catch(error) {
@@ -48,9 +48,7 @@ function Burgers() {
       console.log("Noget gik galt med bestillilngen")
     }
   }
-
-
-
+  
   return(
     <>
       <GlobalStyle />

@@ -49,7 +49,6 @@ export default function Home({ error }) {
           <Link href="/signup">
             <button>Sign Up</button>
           </Link>
-
         </section>
 
       </main>

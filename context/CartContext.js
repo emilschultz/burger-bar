@@ -23,7 +23,7 @@ export const Cart = ({ children }) => {
     }, 0 );
     setTotal(total);
   },[productsInCart]);
-  
+
   // QUANTITY
   useEffect(() => {
     const quantity = productsInCart.reduce((prev, cur) => {
@@ -31,7 +31,7 @@ export const Cart = ({ children }) => {
     }, 0)
     setQuantity(quantity);
   }, [productsInCart]);
-  
+
   console.log(productsInCart);
 
   return(

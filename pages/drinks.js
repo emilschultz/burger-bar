@@ -39,7 +39,7 @@ function Drinks() {
   const checkout = async () => {
     console.log(cart)
     try {
-      await firebase.database().ref('orders').set({
+      await firebase.database().ref('orders').push({
         neworder: cart.productsInCart
       })
     } catch(error) {
