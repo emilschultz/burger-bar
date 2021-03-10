@@ -15,9 +15,9 @@ const schema = object().shape({
 
 export default function login() {
 
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [error, setError] = useState(null);
+  // const [email, setEmail] = useState(null);
+  // const [password, setPassword] = useState(null);
+  // const [error, setError] = useState(null);
 
   const { register, handleSubmit, watch, errors } = useForm({
     mode: 'onChange',
@@ -29,16 +29,6 @@ export default function login() {
 
   const onSubmit = async (data) => {
     console.log('Form data:', data);
-    // try {
-    //     await firebase.auth().signInWithEmailAndPassword(email, password);
-    //     setEmail(email)
-    //     setPassword(password)
-    //     console.log("Du har blitt logget inn");
-    //   } catch (error) {
-    //     setError(error.message);
-    //     console.log("Noe gikk galt");
-    //   }
-
   }
 
   useEffect(() => {

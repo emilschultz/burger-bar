@@ -27,14 +27,26 @@ function Drinks() {
 
           <button onClick={() => {
             cart.addProductToCart({
-              title: `${drink.name}`,
-              price: `${drink.price}`,
-              quantity:`${drink.quantity}`
+              title: drink.name,
+              price: drink.price,
+              quantity:drink.quantity
             })
           }}>+</button>
         </div> 
     );
   });
+
+  const checkout = async () => {
+    console.log(cart)
+    try {
+      await firebase.database().ref('orders').set({
+        neworder: cart.productsInCart
+      })
+    } catch(error) {
+      setError(error.message)
+      console.log("Noget gik galt med bestillilngen")
+    }
+  }
 
   return(
     <>
@@ -55,10 +67,9 @@ function Drinks() {
         </ul>
         <p>Total: {cart.total} kr</p>
         <p>Items in cart: {cart.quantity}</p>
-        <button>Checkout</button>
+        <button onClick={checkout}>Checkout</button>
       </main>
     </>
-
   )
 }
 

@@ -28,14 +28,27 @@ function AddOns() {
         <button
           onClick={() => {
             cart.addProductToCart({
-              title: `${addon.name}`,
-              price: `${addon.price}`,
-              quantity:`${addon.quantity}`
+              title: addon.name,
+              price: addon.price,
+              quantity: addon.quantity
             })
           }}>+</button>
       </div> 
     );
   });
+
+  const checkout = async () => {
+    console.log(cart)
+    try {
+      await firebase.database().ref('orders').set({
+        neworder: cart.productsInCart
+      })
+    } catch(error) {
+      setError(error.message)
+      console.log("Noget gik galt med bestillilngen")
+    }
+  }
+
 
   return(
     <>
@@ -56,7 +69,7 @@ function AddOns() {
         </ul>
         <p>Total: {cart.total} kr</p>
         <p>Items in cart: {cart.quantity}</p>
-        <button>Checkout</button>
+        <button onClick={checkout}>Checkout</button>
       </main>
     </>
   )

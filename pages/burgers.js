@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../config/firebase';
 import { useCart } from '../context/CartContext';
-import { CartConsumer } from '../context/CartContext';
 
 import NavBar from '../components/NavBar';
 import GlobalStyle from '../components/GlobalStyle';
@@ -9,9 +8,9 @@ import GlobalStyle from '../components/GlobalStyle';
 function Burgers() {
 
   const [burgers, setBurgers] = useState([]); 
+  const [error, setError] = useState(null)
   const cart = useCart();
   // console.log('The cart:', cart);
-
 
   useEffect(()=>{
     firebase.firestore().collection('burgers')
@@ -28,15 +27,29 @@ function Burgers() {
         <p>{burger.price} kr</p>
         <button onClick={() => {
           cart.addProductToCart({
-            title: `${burger.name}`,
-            price: `${burger.price}`,
-            quantity:`${burger.quantity}`
+            title: burger.name,
+            price: burger.price,
+            quantity: burger.quantity,
           })
         }}>
           +</button>
       </div> 
     );
   });
+
+  const checkout = async () => {
+    console.log(cart)
+    try {
+      await firebase.database().ref('orders').set({
+        neworder: cart.productsInCart
+      })
+    } catch(error) {
+      setError(error.message)
+      console.log("Noget gik galt med bestillilngen")
+    }
+  }
+
+
 
   return(
     <>
@@ -57,7 +70,7 @@ function Burgers() {
         </ul>
         <p>Total: {cart.total} kr</p>
         <p>Items in cart: {cart.quantity}</p>
-        <button>Checkout</button>
+        <button onClick={checkout}>Checkout</button>
       </main>
     </>
   )

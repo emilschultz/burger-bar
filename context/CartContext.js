@@ -32,7 +32,7 @@ export const Cart = ({ children }) => {
     setQuantity(quantity);
   }, [productsInCart]);
   
-
+  console.log(productsInCart);
 
   return(
     <CartContext.Provider value={{ productsInCart, addProductToCart, total, quantity }}>
