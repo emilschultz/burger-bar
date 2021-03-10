@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import firebase from '../config/firebase';
 import { useCart } from '../context/CartContext';
+import { CartConsumer } from '../context/CartContext';
 
 import NavBar from '../components/NavBar';
 import GlobalStyle from '../components/GlobalStyle';
@@ -9,9 +10,8 @@ function Burgers() {
 
   const [burgers, setBurgers] = useState([]); 
   const cart = useCart();
-  console.log('The cart:', cart);
+  // console.log('The cart:', cart);
 
-  
 
   useEffect(()=>{
     firebase.firestore().collection('burgers')
@@ -29,7 +29,8 @@ function Burgers() {
         <button onClick={() => {
           cart.addProductToCart({
             title: `${burger.name}`,
-            price: `${burger.price}`
+            price: `${burger.price}`,
+            quantity:`${burger.quantity}`
           })
         }}>
           +</button>
@@ -49,12 +50,14 @@ function Burgers() {
           {cart.productsInCart.map((item) => {
             return (
               <li>
-                {item.title} - {item.price}
+                {item.quantity} x {item.title} = {item.price} kr
               </li>
             )
           })}
         </ul>
-        <p>Total: {cart.total}</p>
+        <p>Total: {cart.total} kr</p>
+        <p>Items in cart: {cart.quantity}</p>
+        <button>Checkout</button>
       </main>
     </>
   )

@@ -1,5 +1,7 @@
 import firebase from '../config/firebase';
 import { useEffect, useState } from 'react';
+import { useCart } from '../context/CartContext';
+
 
 import GlobalStyle from '../components/GlobalStyle';
 import NavBar from '../components/NavBar';
@@ -7,6 +9,7 @@ import NavBar from '../components/NavBar';
 function Drinks() {
 
   const [drinks, setDrinks] = useState([]);
+  const cart = useCart();
 
   useEffect(()=>{
     firebase.firestore().collection('drinks')
@@ -17,12 +20,19 @@ function Drinks() {
 
   const drinksList = drinks.map(drink => {
     return(
-      <div key={drink.id}>
-        <h1>{drink.name}</h1>
-        <p>{drink.description}</p>
-        <p>{drink.price} kr</p>
-        <button>+</button>
-      </div> 
+        <div key={drink.id}>
+          <h1>{drink.name}</h1>
+          <p>{drink.description}</p>
+          <p>{drink.price} kr</p>
+
+          <button onClick={() => {
+            cart.addProductToCart({
+              title: `${drink.name}`,
+              price: `${drink.price}`,
+              quantity:`${drink.quantity}`
+            })
+          }}>+</button>
+        </div> 
     );
   });
 
@@ -33,6 +43,19 @@ function Drinks() {
       <main>
         <h1>Drinks</h1>
         {drinksList}
+        <h1>Cart</h1>
+        <ul>
+          {cart.productsInCart.map((item) => {
+            return (
+              <li>
+                {item.quantity} x {item.title} = {item.price} kr
+              </li>
+            )
+          })}
+        </ul>
+        <p>Total: {cart.total} kr</p>
+        <p>Items in cart: {cart.quantity}</p>
+        <button>Checkout</button>
       </main>
     </>
 

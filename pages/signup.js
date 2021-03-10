@@ -17,12 +17,14 @@ export default function signup() {
 
   const router = useRouter();
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
       const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
       const uid = user.uid
       console.log("Du har lavet en bruger! tiløk")
+      console.log(uid)
       router.push('/login');
     } 
     catch(error) {
@@ -56,9 +58,9 @@ export default function signup() {
           onChange={event => setPassword(event.target.value)} 
           />
 
-        <Link href="/login">
+       
           <button type="submit">Create user</button>
-        </Link>
+     
 
         <Link href="/">
           <button type="button">Cancel</button>
