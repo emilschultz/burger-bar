@@ -1,31 +1,41 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import firebase from '../config/firebase';
+import Head from "next/head";
+import Link from "next/link";
+import firebase from "../config/firebase";
+import { useAuth } from "../config/auth";
+import { useCart } from "../context/CartContext";
+import { useRouter } from "next/router";
 
-import NavBar from '../components/NavBar';
-import GlobalStyle from '../components/GlobalStyle';
-import { useEffect } from 'react';
+import NavBar from "../components/NavBar";
+import GlobalStyle from "../components/GlobalStyle";
+import { useEffect } from "react";
 
+export default function Home() {
+  const cart = useCart();
 
-export default function Home({ error }) {
-  if (error !== undefined) {
-    return (
-        <p>En fejl er opstået: {error}</p>
-    )
+  console.log("KURVEN:", cart);
+  const { user, loading, isAuthenticted } = useAuth();
+  const router = useRouter();
+
+  if (loading) {
+    return <>Loading...</>;
+  }
+
+  if (!isAuthenticted) {
+    router.push("/login");
+    return <>Du er ikke logget ind</>;
   }
 
   useEffect(async () => {
-    const userSnapshot = await firebase.firestore().collection('users').get();
+    const userSnapshot = await firebase.firestore().collection("users").get();
 
     const users = [];
-    userSnapshot.forEach(doc => {
+    userSnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    console.log('users:', users)
-  },[]);
+    console.log("users:", users);
+  }, []);
 
   return (
-    
     <>
       <Head>
         <title>Børres Burger</title>
@@ -37,11 +47,12 @@ export default function Home({ error }) {
 
       <main as="main">
         <section>
-          
           <h1>Hi!</h1>
           <h2>Welcome to Børre's Burgers</h2>
-          <p>Have a look at the menu and log in to order. <br/>
-            If you don't have an account, click the sign up button</p>
+          <p>
+            Have a look at the menu and log in to order. <br />
+            If you don't have an account, click the sign up button
+          </p>
 
           <Link href="/login">
             <button>Login</button>
@@ -50,9 +61,7 @@ export default function Home({ error }) {
             <button>Sign Up</button>
           </Link>
         </section>
-
       </main>
     </>
-
-  )
+  );
 }

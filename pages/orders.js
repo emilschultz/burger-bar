@@ -7,11 +7,11 @@ export default function Orders() {
 
   useEffect(() => {  
     const newOrder = snapshot => {    
-    setOrderList(snapshot.val());  
+    setOrderList(snapshot.val();  
     }
     firebase.database().ref('orders').on('value', newOrder);  
-    setOrderList(orderList)
-    console.log(orderList)
+    setOrderList(newOrder)
+    console.log(newOrder)∏
   }, [orderList]); 
 
   // const allOrders = orderList.forEach((order) => {
@@ -38,5 +38,4 @@ export default function Orders() {
       <button>Order Ready</button>
       </>
     )
-  
 }
