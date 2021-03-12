@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import firebase from "../config/firebase";
 import { useCart } from "../context/CartContext";
 
@@ -82,8 +83,9 @@ function Burgers() {
         <p>Items in cart: {cart.quantity}</p>
 
         <button onClick={clearCart}>Clear cart</button>
-
-        <button onClick={checkout}>Checkout</button>
+        <Link href="/cart">
+          <button onClick={checkout}>Go to cart</button>
+        </Link>
       </main>
     </>
   );

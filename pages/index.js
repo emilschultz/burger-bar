@@ -13,17 +13,6 @@ export default function Home() {
   const cart = useCart();
 
   console.log("KURVEN:", cart);
-  const { user, loading, isAuthenticted } = useAuth();
-  const router = useRouter();
-
-  if (loading) {
-    return <>Loading...</>;
-  }
-
-  if (!isAuthenticted) {
-    router.push("/login");
-    return <>Du er ikke logget ind</>;
-  }
 
   useEffect(async () => {
     const userSnapshot = await firebase.firestore().collection("users").get();

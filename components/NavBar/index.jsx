@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import NavBarStyle from '../NavBarStyle';
+import Link from "next/link";
+import NavBarStyle from "../NavBarStyle";
 
 export default function NavBar() {
-  return(
+  return (
     <NavBarStyle>
       <li>
         <Link href="/">
@@ -21,12 +21,14 @@ export default function NavBar() {
           <a>Sign Up</a>
         </Link>
       </li>
-      <li style={{
-        fontWeight: "bold",
-        fontStyle: "italic",
-        textDecoration: "underline",
-        color: "red"
-      }}>
+      <li
+        style={{
+          fontWeight: "bold",
+          fontStyle: "italic",
+          textDecoration: "underline",
+          color: "red",
+        }}
+      >
         Menu:
       </li>
       <li>
@@ -40,12 +42,16 @@ export default function NavBar() {
           <a>Drinks</a>
         </Link>
       </li>
-      
+
       <li>
         <Link href="/addons">
           <a>Add Ons</a>
         </Link>
+
+        <Link href="/cart">
+          <a>Cart</a>
+        </Link>
       </li>
     </NavBarStyle>
-  )
+  );
 }
