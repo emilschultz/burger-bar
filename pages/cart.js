@@ -28,7 +28,6 @@ function Cart() {
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
               </li>
-              {/* <button onClick={clearCart}>Remove</button> */}
             </>
           );
         })}
@@ -36,8 +35,6 @@ function Cart() {
       <p>Total: {cart.total} kr</p>
       <p>Items in cart: {cart.quantity}</p>
       <button onClick={checkout}>Checkout</button>
-
-      {/* <button onClick={checkout}>Checkout</button> */}
     </>
   );
 }

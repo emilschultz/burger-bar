@@ -1,6 +1,7 @@
 import firebase from "../config/firebase";
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
+import Link from "next/link";
 
 import GlobalStyle from "../components/GlobalStyle";
 import NavBar from "../components/NavBar";
@@ -40,16 +41,6 @@ function Drinks() {
     );
   });
 
-  const checkout = async () => {
-    console.log(cart);
-    try {
-      await firebase.database().ref("orders").push(cart.productsInCart);
-    } catch (error) {
-      setError(error.message);
-      console.log("Noget gik galt med bestillilngen");
-    }
-  };
-
   return (
     <>
       <GlobalStyle />
@@ -69,7 +60,9 @@ function Drinks() {
         </ul>
         <p>Total: {cart.total} kr</p>
         <p>Items in cart: {cart.quantity}</p>
-        <button onClick={checkout}>Checkout</button>
+        <Link href="/cart">
+          <button>Go to cart</button>
+        </Link>
       </main>
     </>
   );

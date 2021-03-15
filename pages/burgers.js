@@ -8,7 +8,6 @@ import GlobalStyle from "../components/GlobalStyle";
 
 function Burgers() {
   const [burgers, setBurgers] = useState([]);
-  const [error, setError] = useState(null);
   const cart = useCart();
 
   useEffect(() => {
@@ -41,36 +40,6 @@ function Burgers() {
     );
   });
 
-  // const checkout = async () => {
-  //   console.log(cart);
-  //   try {
-  //     await firebase.database().ref("orders").push(cart.productsInCart);
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.log("Noget gik galt med bestillilngen");
-  //   }
-  // };
-
-  // const checkout = () => {
-  //   const collection = firebase.firestore().collection("orders");
-  //   collection
-  //     .doc()
-  //     .set({
-  //       order: cart.productsInCart,
-  //     })
-  //     .then(() => {
-  //       console.log("SENDT ITL FIRESTORE!");
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-
-  // const clearCart = () => {
-  //   const find = cart.productsInCart.find((item) => item.price >= 120);
-  //   console.log("ITEMS UNDER 120KR:", find);
-  // };
-
   const clearCart = () => {
     const find = cart.productsInCart.find((item) => item.price >= 120);
     console.log("ITEMS UNDER 120KR:", find);
@@ -102,7 +71,6 @@ function Burgers() {
         <button onClick={clearCart}>Clear cart</button>
         <Link href="/cart">
           <button>Go to cart</button>
-          {/* <button onClick={checkout}>Go to cart</button> */}
         </Link>
       </main>
     </>
