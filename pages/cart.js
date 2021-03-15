@@ -6,6 +6,16 @@ import GlobalStyle from "../components/GlobalStyle";
 
 function Cart() {
   const cart = useCart();
+
+  const checkout = async () => {
+    console.log(cart);
+    try {
+      await firebase.database().ref("orders").push(cart.productsInCart);
+    } catch (error) {
+      setError(error.message);
+      console.log("Noget gik galt med bestillilngen");
+    }
+  };
   return (
     <>
       <GlobalStyle />
@@ -25,6 +35,7 @@ function Cart() {
       </ul>
       <p>Total: {cart.total} kr</p>
       <p>Items in cart: {cart.quantity}</p>
+      <button onClick={checkout}>Checkout</button>
 
       {/* <button onClick={checkout}>Checkout</button> */}
     </>

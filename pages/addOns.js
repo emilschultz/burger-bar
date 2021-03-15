@@ -1,26 +1,25 @@
-import firebase from '../config/firebase';
-import { useEffect, useState } from 'react';
-import { useCart } from '../context/CartContext';
+import firebase from "../config/firebase";
+import { useEffect, useState } from "react";
+import { useCart } from "../context/CartContext";
 
-
-import GlobalStyle from '../components/GlobalStyle';
-import NavBar from '../components/NavBar';
+import GlobalStyle from "../components/GlobalStyle";
+import NavBar from "../components/NavBar";
 
 function AddOns() {
-  
-  let [addOns, setAddOns] = useState([]); 
+  let [addOns, setAddOns] = useState([]);
   const cart = useCart();
 
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("add-ons")
+      .onSnapshot((querySnapshot) => {
+        setAddOns(querySnapshot.docs.map((addon) => addon.data()));
+      });
+  }, []);
 
-  useEffect(()=>{
-    firebase.firestore().collection('add-ons')
-    .onSnapshot((querySnapshot) => {
-      setAddOns(querySnapshot.docs.map(addon => addon.data()));
-    });
-  }, [])
-
-  const addOnsList = addOns.map(addon => {
-    return(
+  const addOnsList = addOns.map((addon) => {
+    return (
       <div key={addon.id}>
         <h1>{addon.name}</h1>
         <p>{addon.description}</p>
@@ -30,33 +29,33 @@ function AddOns() {
             cart.addProductToCart({
               title: addon.name,
               price: addon.price,
-              quantity: addon.quantity
-            })
-          }}>+</button>
-      </div> 
+              quantity: addon.quantity,
+            });
+          }}
+        >
+          +
+        </button>
+      </div>
     );
   });
 
   const checkout = async () => {
-    console.log(cart)
+    console.log(cart);
     try {
-      await firebase.database().ref('orders').push({
-        neworder: cart.productsInCart
-      })
-    } catch(error) {
-      setError(error.message)
-      console.log("Noget gik galt med bestillilngen")
+      await firebase.database().ref("orders").push(cart.productsInCart);
+    } catch (error) {
+      setError(error.message);
+      console.log("Noget gik galt med bestillilngen");
     }
-  }
+  };
 
-
-  return(
+  return (
     <>
       <GlobalStyle />
       <NavBar />
       <main>
         <h1>Add Ons</h1>
-          {addOnsList}
+        {addOnsList}
         <h1>Cart</h1>
         <ul>
           {cart.productsInCart.map((item) => {
@@ -64,7 +63,7 @@ function AddOns() {
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
               </li>
-            )
+            );
           })}
         </ul>
         <p>Total: {cart.total} kr</p>
@@ -72,7 +71,7 @@ function AddOns() {
         <button onClick={checkout}>Checkout</button>
       </main>
     </>
-  )
+  );
 }
 
 export default AddOns;
