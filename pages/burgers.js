@@ -25,6 +25,7 @@ function Burgers() {
         <h1>{burger.name}</h1>
         <p>{burger.description}</p>
         <p>{burger.price} kr</p>
+        <p>{burger.id} kr</p>
         <button
           onClick={() => {
             cart.addProductToCart({

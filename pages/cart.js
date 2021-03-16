@@ -50,7 +50,7 @@ function Cart() {
       <p>Items in cart: {cart.quantity}</p>
       <button onClick={emptyCart}>Empty cart</button>
 
-      <Link href="/thankYou">
+      <Link href="/pickup">
         <button onClick={checkout}>Checkout</button>
       </Link>
     </>

@@ -3,10 +3,8 @@ import firebase from "../config/firebase";
 
 export default function Orders() {
   const [orderList, setOrderList] = useState([]);
-  const [error, setError] = useState();
   const [readyOrder, setReadyOrder] = useState([]);
-
-  const array = [];
+  const [error, setError] = useState();
 
   useEffect(() => {
     firebase
@@ -20,8 +18,7 @@ export default function Orders() {
         setOrderList(newOrderList);
       });
   }, []);
-
-  const ready = (e) => array.push(e.target.value);
+  console.log("ORDERLIST:", orderList);
 
   // const ready = async (e) => {
   //   try {
@@ -36,6 +33,17 @@ export default function Orders() {
 
   const currentOrders = orderList.map((array) => {
     return array.map((order) => {
+      console.log(order);
+
+      const delivery = async () => {
+        try {
+          await firebase.database().ref("delivery").push(readyOrder);
+        } catch (error) {
+          setError(error.message);
+          console.log("Noget gik galt med afsendingen");
+        }
+      };
+
       return (
         <div
           key={Math.random() * (100 - 1)}
@@ -45,13 +53,23 @@ export default function Orders() {
             {order.quantity} x {order.title}
           </p>
 
-          <button onClick={ready}>Order ready</button>
+          <button
+            onClick={() => {
+              setReadyOrder({
+                ...readyOrder,
+                key: order.id,
+                title: order.title,
+              });
+            }}
+          >
+            Preparing order
+          </button>
+          <button onClick={delivery}>Order ready</button>
         </div>
       );
     });
   });
-
-  console.log("CURRENT ORDERS:", currentOrders);
+  console.log("READY:", readyOrder);
 
   return (
     <>
