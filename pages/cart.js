@@ -1,5 +1,6 @@
 import firebase from "../config/firebase";
 import { useCart } from "../context/CartContext";
+import Link from "next/link";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
@@ -16,6 +17,18 @@ function Cart() {
       console.log("Noget gik galt med bestillilngen");
     }
   };
+
+  // const removeItem = (event) => {
+  //   const newCart = [...cart.productsInCart];
+  //   newCart.splice(event.target.value, 1);
+  //   cart.setProductsInCart(newCart);
+  // };
+
+  const emptyCart = () => {
+    let empty = [];
+    cart.setProductsInCart(empty);
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -27,6 +40,7 @@ function Cart() {
             <>
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
+                <button onClick={removeItem}>Remove</button>
               </li>
             </>
           );
@@ -34,7 +48,11 @@ function Cart() {
       </ul>
       <p>Total: {cart.total} kr</p>
       <p>Items in cart: {cart.quantity}</p>
-      <button onClick={checkout}>Checkout</button>
+      <button onClick={emptyCart}>Empty cart</button>
+
+      <Link href="/thankYou">
+        <button onClick={checkout}>Checkout</button>
+      </Link>
     </>
   );
 }
