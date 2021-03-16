@@ -21,7 +21,7 @@ function AddOns() {
 
   const addOnsList = addOns.map((addon) => {
     return (
-      <div key={addon.id}>
+      <div key={Math.random() * (100 - 1)}>
         <h1>{addon.name}</h1>
         <p>{addon.description}</p>
         <p>{addon.price} kr</p>
@@ -51,7 +51,7 @@ function AddOns() {
         <ul>
           {cart.productsInCart.map((item) => {
             return (
-              <li>
+              <li key={Math.random() * (100 - 1)}>
                 {item.quantity} x {item.title} = {item.price} kr
               </li>
             );

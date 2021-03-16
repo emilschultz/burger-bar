@@ -37,12 +37,12 @@ function Cart() {
       <ul>
         {cart.productsInCart.map((item) => {
           return (
-            <>
+            <div key={Math.random() * (100 - 1)}>
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
                 <button onClick={removeItem}>Remove</button>
               </li>
-            </>
+            </div>
           );
         })}
       </ul>

@@ -21,7 +21,7 @@ function Drinks() {
 
   const drinksList = drinks.map((drink) => {
     return (
-      <div key={drink.id}>
+      <div key={Math.random() * (100 - 1)}>
         <h1>{drink.name}</h1>
         <p>{drink.description}</p>
         <p>{drink.price} kr</p>
@@ -52,7 +52,7 @@ function Drinks() {
         <ul>
           {cart.productsInCart.map((item) => {
             return (
-              <li>
+              <li key={Math.random() * (100 - 1)}>
                 {item.quantity} x {item.title} = {item.price} kr
               </li>
             );
