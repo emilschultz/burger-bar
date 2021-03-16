@@ -18,11 +18,11 @@ function Cart() {
     }
   };
 
-  // const removeItem = (event) => {
-  //   const newCart = [...cart.productsInCart];
-  //   newCart.splice(event.target.value, 1);
-  //   cart.setProductsInCart(newCart);
-  // };
+  const removeItem = (event) => {
+    const newCart = [...cart.productsInCart];
+    newCart.splice(event.target.value, 1);
+    cart.setProductsInCart(newCart);
+  };
 
   const emptyCart = () => {
     let empty = [];

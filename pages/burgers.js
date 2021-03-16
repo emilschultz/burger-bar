@@ -40,12 +40,6 @@ function Burgers() {
     );
   });
 
-  const removeItem = (e) => {
-    const price = e.target.getAttribute("price");
-    const newCart = cart.productsInCart.filter((item) => item.price !== price);
-    cart.setProductsInCart(...newCart);
-  };
-
   return (
     <>
       <GlobalStyle />
@@ -60,7 +54,6 @@ function Burgers() {
               <>
                 <li>
                   {item.quantity} x {item.title} = {item.price} kr
-                  <button onClick={removeItem}>Remove</button>
                 </li>
               </>
             );
