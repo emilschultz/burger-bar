@@ -40,9 +40,10 @@ function Burgers() {
     );
   });
 
-  const clearCart = () => {
-    const find = cart.productsInCart.find((item) => item.price >= 120);
-    console.log("ITEMS UNDER 120KR:", find);
+  const removeItem = (e) => {
+    const price = e.target.getAttribute("price");
+    const newCart = cart.productsInCart.filter((item) => item.price !== price);
+    cart.setProductsInCart(...newCart);
   };
 
   return (
@@ -59,8 +60,8 @@ function Burgers() {
               <>
                 <li>
                   {item.quantity} x {item.title} = {item.price} kr
+                  <button onClick={removeItem}>Remove</button>
                 </li>
-                <button onClick={clearCart}>Remove</button>
               </>
             );
           })}
@@ -68,7 +69,7 @@ function Burgers() {
         <p>Total: {cart.total} kr</p>
         <p>Items in cart: {cart.quantity}</p>
 
-        <button onClick={clearCart}>Clear cart</button>
+        {/* <button onClick={clearCart}>Clear cart</button> */}
         <Link href="/cart">
           <button>Go to cart</button>
         </Link>
