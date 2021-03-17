@@ -66,7 +66,8 @@ export default function Orders() {
   const currentOrders = orderList.map((array) => {
     return (
       <div
-        key={Math.random() * (100 - 1)}
+        id={Math.random() * (100 - 1)}
+        key={Math.random() * (100 + 1)}
         style={{
           border: "1px solid black",
           margin: "1rem",
@@ -74,8 +75,9 @@ export default function Orders() {
         }}
       >
         <p>
-          <strong>Order number:</strong>
+          <strong>Order number: {Math.floor(Math.random() * 1000 + 1)}</strong>
         </p>
+
         {array.map((order) => {
           return (
             <div key={Math.random() * (100 - 1)}>
@@ -85,12 +87,12 @@ export default function Orders() {
             </div>
           );
         })}
+
         <button> Preparing order </button>
         <button onClick={delivery}>Order ready</button>
       </div>
     );
   });
-
   return (
     <>
       <p>Kitchen screen</p>
