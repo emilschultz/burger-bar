@@ -25,14 +25,12 @@ function Burgers() {
         <h1>{burger.name}</h1>
         <p>{burger.description}</p>
         <p>{burger.price} kr</p>
-        <p>{burger.id} kr</p>
         <button
           onClick={() => {
             cart.addProductToCart({
               title: burger.name,
               price: burger.price,
               quantity: burger.quantity,
-              type: burger.type,
             });
           }}
         >
