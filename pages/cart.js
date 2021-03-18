@@ -9,7 +9,6 @@ function Cart() {
   const cart = useCart();
 
   const checkout = async () => {
-    console.log(cart);
     try {
       await firebase.database().ref("orders").push(cart.productsInCart);
     } catch (error) {

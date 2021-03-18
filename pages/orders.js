@@ -21,17 +21,6 @@ export default function Orders() {
   }, []);
   console.log("ORDERLIST:", orderList);
 
-  // const ready = async (e) => {
-  //   try {
-  //     await firebase.firestore().collection("orders").set({
-  //       name: e.target.value,
-  //     });
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.log("Virker ikke");
-  //   }
-  // };
-
   //HERHERHERHERHER________VIRKER DENNHER G
   const delivery = async () => {
     try {
@@ -41,23 +30,6 @@ export default function Orders() {
       console.log("Noget gik galt med afsendingen");
     }
   };
-
-  // const delivery = async () => {
-  //   try {
-  //     await firebase
-  //       .firestore()
-  //       .collection("orders")
-  //       .doc()
-  //       .set({ title: readyOrder.order.title });
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.log("Noget gik galt med afsendingen");
-  //   }
-  // };
-
-  // useEffect(()=>{
-  //   firebase.database().ref("orders/child")
-  // },[])
 
   // const addOrderToDelivery = (product) => {
   //   setReadyOrder([readyOrder, product]);
