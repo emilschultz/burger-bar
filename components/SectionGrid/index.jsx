@@ -6,6 +6,7 @@ const SectionGrid = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(320px, 3fr));
   grid-template-rows: auto;
   grid-gap: 1rem;
+  row-gap: 2.5rem;
 
   div {
     grid-column: span 1;

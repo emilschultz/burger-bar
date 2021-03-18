@@ -5,6 +5,10 @@ import Link from "next/link";
 
 import GlobalStyle from "../components/GlobalStyle";
 import NavBar from "../components/NavBar";
+import Heading from "../components/Heading";
+import MenuCard from "../components/MenuCard";
+import SectionGrid from "../components/SectionGrid";
+import AddToCartButton from "../components/AddToCartButton";
 
 function Drinks() {
   const [drinks, setDrinks] = useState([]);
@@ -21,12 +25,12 @@ function Drinks() {
 
   const drinksList = drinks.map((drink) => {
     return (
-      <div key={Math.random() * (100 - 1)}>
+      <MenuCard key={Math.random() * (100 - 1)}>
         <h1>{drink.name}</h1>
         <p>{drink.description}</p>
         <p>{drink.price} kr</p>
 
-        <button
+        <AddToCartButton
           onClick={() => {
             cart.addProductToCart({
               title: drink.name,
@@ -35,9 +39,9 @@ function Drinks() {
             });
           }}
         >
-          +
-        </button>
-      </div>
+          Add to cart ⬇
+        </AddToCartButton>
+      </MenuCard>
     );
   });
 
@@ -46,9 +50,11 @@ function Drinks() {
       <GlobalStyle />
       <NavBar />
       <main>
-        <h1>Drinks</h1>
-        {drinksList}
-        <h1>Cart</h1>
+        <Heading>Drinks</Heading>
+
+        <SectionGrid>{drinksList}</SectionGrid>
+
+        <Heading>Cart</Heading>
         <ul>
           {cart.productsInCart.map((item) => {
             return (

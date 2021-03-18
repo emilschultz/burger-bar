@@ -5,6 +5,10 @@ import Link from "next/link";
 
 import GlobalStyle from "../components/GlobalStyle";
 import NavBar from "../components/NavBar";
+import Heading from "../components/Heading";
+import MenuCard from "../components/MenuCard";
+import SectionGrid from "../components/SectionGrid";
+import AddToCartButton from "../components/AddToCartButton";
 
 function AddOns() {
   let [addOns, setAddOns] = useState([]);
@@ -21,11 +25,11 @@ function AddOns() {
 
   const addOnsList = addOns.map((addon) => {
     return (
-      <div key={Math.random() * (100 - 1)}>
+      <MenuCard key={Math.random() * (100 - 1)}>
         <h1>{addon.name}</h1>
         <p>{addon.description}</p>
         <p>{addon.price} kr</p>
-        <button
+        <AddToCartButton
           onClick={() => {
             cart.addProductToCart({
               title: addon.name,
@@ -35,8 +39,8 @@ function AddOns() {
           }}
         >
           +
-        </button>
-      </div>
+        </AddToCartButton>
+      </MenuCard>
     );
   });
 
@@ -45,9 +49,9 @@ function AddOns() {
       <GlobalStyle />
       <NavBar />
       <main>
-        <h1>Add Ons</h1>
-        {addOnsList}
-        <h1>Cart</h1>
+        <Heading>Add Ons</Heading>
+        <SectionGrid>{addOnsList}</SectionGrid>
+        <Heading>Cart</Heading>
         <ul>
           {cart.productsInCart.map((item) => {
             return (

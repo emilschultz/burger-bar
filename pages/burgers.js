@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import Heading from "../components/Heading";
 import MenuCard from "../components/MenuCard";
 import SectionGrid from "../components/SectionGrid";
 import AddToCartButton from "../components/AddToCartButton";
@@ -48,11 +49,11 @@ function Burgers() {
       <GlobalStyle />
       <NavBar />
       <main>
-        <h1>Burgers</h1>
+        <Heading>Burgers</Heading>
 
         <SectionGrid>{burgerList}</SectionGrid>
 
-        <h1>Cart</h1>
+        <Heading>Cart</Heading>
         <ul>
           {cart.productsInCart.map((item) => {
             return (
