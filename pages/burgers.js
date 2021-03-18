@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
 import MenuCard from "../components/MenuCard";
 import SectionGrid from "../components/SectionGrid";
+import AddToCartButton from "../components/AddToCartButton";
 
 function Burgers() {
   const [burgers, setBurgers] = useState([]);
@@ -27,7 +28,7 @@ function Burgers() {
         <h1>{burger.name}</h1>
         <p>{burger.description}</p>
         <p>{burger.price} kr</p>
-        <button
+        <AddToCartButton
           onClick={() => {
             cart.addProductToCart({
               title: burger.name,
@@ -36,8 +37,8 @@ function Burgers() {
             });
           }}
         >
-          +
-        </button>
+          Add to cart ⬇
+        </AddToCartButton>
       </MenuCard>
     );
   });

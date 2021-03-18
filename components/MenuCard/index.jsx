@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const MenuCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #f9f3f2;
   border: 0.1rem solid #f5173d;
   border-radius: 0.3rem;
