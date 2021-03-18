@@ -5,6 +5,8 @@ import { useCart } from "../context/CartContext";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import MenuCard from "../components/MenuCard";
+import SectionGrid from "../components/SectionGrid";
 
 function Burgers() {
   const [burgers, setBurgers] = useState([]);
@@ -21,7 +23,7 @@ function Burgers() {
 
   const burgerList = burgers.map((burger) => {
     return (
-      <div key={Math.random() * (500 - 1)}>
+      <MenuCard key={Math.random() * (500 - 1)}>
         <h1>{burger.name}</h1>
         <p>{burger.description}</p>
         <p>{burger.price} kr</p>
@@ -36,7 +38,7 @@ function Burgers() {
         >
           +
         </button>
-      </div>
+      </MenuCard>
     );
   });
 
@@ -46,7 +48,9 @@ function Burgers() {
       <NavBar />
       <main>
         <h1>Burgers</h1>
-        {burgerList}
+
+        <SectionGrid>{burgerList}</SectionGrid>
+
         <h1>Cart</h1>
         <ul>
           {cart.productsInCart.map((item) => {
