@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -20,7 +20,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
     display: flex;
     justify-content: center;
+    background-color: #f9f3f2;
   }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
