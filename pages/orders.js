@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../config/firebase";
 
+// STYLED COMPONENTS
+import GlobalStyle from "../components/GlobalStyle";
+import SectionGrid from "../components/SectionGrid";
+import OrderCard from "../components/OrderCard";
+import OrderPageStyle from "../components/OrderPageStyle";
+import OrderHeading from "../components/OrderHeading";
+
 export default function Orders() {
   const [orderList, setOrderList] = useState([]);
   const [error, setError] = useState();
@@ -14,17 +21,19 @@ export default function Orders() {
       .on("value", (snapshot) => {
         let newOrderList = [];
         snapshot.forEach((snap) => {
-          newOrderList.push(snap.val());
+          newOrderList.push({
+            list: snap.val(),
+            key: snap.key,
+          });
         });
         setOrderList(newOrderList);
       });
   }, []);
   console.log("ORDERLIST:", orderList);
 
-  //HERHERHERHERHER________VIRKER DENNHER G
-  const delivery = async () => {
+  const delivery = async (key) => {
     try {
-      await firebase.database().ref("delivery").push(readyOrder);
+      await firebase.database().ref("delivery").push({ key });
     } catch (error) {
       setError(error.message);
       console.log("Noget gik galt med afsendingen");
@@ -37,39 +46,44 @@ export default function Orders() {
 
   const currentOrders = orderList.map((array) => {
     return (
-      <div
-        id={Math.random() * (100 - 1)}
-        key={Math.random() * (100 + 1)}
-        style={{
-          border: "1px solid black",
-          margin: "1rem",
-          padding: "1rem",
-        }}
-      >
-        <p>
-          <strong>Order number: {Math.floor(Math.random() * 1000 + 1)}</strong>
+      <OrderCard id={array.key} key={Math.random() * (100 + 1)}>
+        <p style={{ borderBottom: ".1rem solid #1731f5" }}>
+          <strong>Order number: {array.key}</strong>
         </p>
 
-        {array.map((order) => {
+        {array.list.map((order) => {
           return (
-            <div key={Math.random() * (100 - 1)}>
+            <div
+              style={{
+                // borderTop: ".1rem solid #1731f5",
+                borderBottom: ".1rem solid #1731f5",
+              }}
+              key={Math.random() * (100 - 1)}
+            >
               <p>
                 {order.quantity} x {order.title}
               </p>
             </div>
           );
         })}
-
-        <button> Preparing order </button>
-        <button onClick={delivery}>Order ready</button>
-      </div>
+        {/* <button> Preparing order </button> */}
+        <button
+          onClick={() => {
+            delivery(array.key);
+          }}
+        >
+          Order ready
+        </button>
+      </OrderCard>
     );
   });
   return (
     <>
-      <p>Kitchen screen</p>
-      <h1>Orders:</h1>
-      {currentOrders}
+      <GlobalStyle />
+      <OrderPageStyle>
+        <OrderHeading>Orders:</OrderHeading>
+        <SectionGrid>{currentOrders}</SectionGrid>
+      </OrderPageStyle>
     </>
   );
 }
