@@ -25,7 +25,7 @@ const OrderCard = styled.div`
 
     background-color: #f2f2f9;
     color: #1731f5;
-    width: 50%;
+    width: 45%;
     height: 4rem;
     margin: 2rem 0rem 0rem 0rem;
 

@@ -11,9 +11,8 @@ import OrderHeading from "../components/OrderHeading";
 export default function Orders() {
   const [orderList, setOrderList] = useState([]);
   const [error, setError] = useState();
-  const [readyOrder, setReadyOrder] = useState();
-  console.log("readyOrder:", readyOrder);
 
+  // GET DATA FROM REALTIME DATABASE ("orders")
   useEffect(() => {
     firebase
       .database()
@@ -31,6 +30,7 @@ export default function Orders() {
   }, []);
   console.log("ORDERLIST:", orderList);
 
+  // PUSH ORDER KEY/ID TO "deleveries" IN REALTIME DATABASE
   const delivery = async (key) => {
     try {
       await firebase.database().ref("delivery").push({ key });
@@ -40,22 +40,26 @@ export default function Orders() {
     }
   };
 
-  // const addOrderToDelivery = (product) => {
-  //   setReadyOrder([readyOrder, product]);
-  // };
+  const preparing = async (key) => {
+    try {
+      await firebase.database().ref("preparing").push({ key });
+    } catch (error) {
+      setError(error.message);
+      console.log("Noget gik galt med afsendingen");
+    }
+  };
 
   const currentOrders = orderList.map((array) => {
     return (
-      <OrderCard id={array.key} key={Math.random() * (100 + 1)}>
+      <OrderCard id={array.key} key={array.key}>
         <p style={{ borderBottom: ".1rem solid #1731f5" }}>
-          <strong>Order number: {array.key}</strong>
+          <strong>Order number{array.key}</strong>
         </p>
 
         {array.list.map((order) => {
           return (
             <div
               style={{
-                // borderTop: ".1rem solid #1731f5",
                 borderBottom: ".1rem solid #1731f5",
               }}
               key={Math.random() * (100 - 1)}
@@ -66,14 +70,28 @@ export default function Orders() {
             </div>
           );
         })}
-        {/* <button> Preparing order </button> */}
-        <button
-          onClick={() => {
-            delivery(array.key);
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          Order ready
-        </button>
+          <button
+            onClick={() => {
+              preparing(array.key);
+            }}
+          >
+            Preparing order
+          </button>
+          <button
+            onClick={() => {
+              delivery(array.key);
+            }}
+          >
+            Order ready
+          </button>
+        </div>
       </OrderCard>
     );
   });

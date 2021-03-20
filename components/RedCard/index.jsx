@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MenuCard = styled.div`
+const RedCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,4 +25,4 @@ const MenuCard = styled.div`
   }
 `;
 
-export default MenuCard;
+export default RedCard;

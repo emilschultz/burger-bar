@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
 import Heading from "../components/Heading";
-import MenuCard from "../components/MenuCard";
+import RedCard from "../components/RedCard";
 import SectionGrid from "../components/SectionGrid";
 import AddToCartButton from "../components/AddToCartButton";
 
@@ -25,7 +25,7 @@ function Burgers() {
 
   const burgerList = burgers.map((burger) => {
     return (
-      <MenuCard key={Math.random() * (500 - 1)}>
+      <RedCard key={Math.random() * (500 - 1)}>
         <h1>{burger.name}</h1>
         <p>{burger.description}</p>
         <p>{burger.price} kr</p>
@@ -40,7 +40,7 @@ function Burgers() {
         >
           Add to cart ⬇
         </AddToCartButton>
-      </MenuCard>
+      </RedCard>
     );
   });
 

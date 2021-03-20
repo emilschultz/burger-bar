@@ -6,7 +6,7 @@ import Link from "next/link";
 import GlobalStyle from "../components/GlobalStyle";
 import NavBar from "../components/NavBar";
 import Heading from "../components/Heading";
-import MenuCard from "../components/MenuCard";
+import RedCard from "../components/RedCard";
 import SectionGrid from "../components/SectionGrid";
 import AddToCartButton from "../components/AddToCartButton";
 
@@ -25,7 +25,7 @@ function Drinks() {
 
   const drinksList = drinks.map((drink) => {
     return (
-      <MenuCard key={Math.random() * (100 - 1)}>
+      <RedCard key={Math.random() * (100 - 1)}>
         <h1>{drink.name}</h1>
         <p>{drink.description}</p>
         <p>{drink.price} kr</p>
@@ -41,7 +41,7 @@ function Drinks() {
         >
           Add to cart ⬇
         </AddToCartButton>
-      </MenuCard>
+      </RedCard>
     );
   });
 

@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 20px;
     line-height: 1.5;
+    color: red;
   }
   body {
     font-family: sans-serif;
