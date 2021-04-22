@@ -10,16 +10,15 @@ function Cart() {
 
   const checkout = async () => {
     try {
-      await firebase.database().ref("orders").push(cart.productsInCart);
+      await firebase.database().ref("orders").add(cart.productsInCart);
     } catch (error) {
-      setError(error.message);
       console.log("Noget gik galt med bestillilngen");
     }
   };
 
-  const removeItem = (event) => {
+  const removeItem = (index) => {
     const newCart = [...cart.productsInCart];
-    newCart.splice(event.target.value, 1);
+    newCart.splice(index, 1);
     cart.setProductsInCart(newCart);
   };
 
@@ -34,12 +33,12 @@ function Cart() {
       <NavBar />
       <h1>Cart</h1>
       <ul>
-        {cart.productsInCart.map((item) => {
+        {cart.productsInCart.map((item, index) => {
           return (
             <div key={Math.random() * (100 - 1)}>
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
-                <button onClick={removeItem}>Remove</button>
+                <button onClick={() => removeItem(index)}>Remove</button>
               </li>
             </div>
           );
