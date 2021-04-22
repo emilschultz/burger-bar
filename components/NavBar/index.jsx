@@ -49,7 +49,17 @@ export default function NavBar() {
         </Link>
 
         <Link href="/cart">
-          <a>Cart</a>
+          <a
+            style={{
+              marginLeft: "1.5rem",
+              fontWeight: "bold",
+              fontStyle: "italic",
+              textDecoration: "underline",
+              color: "red",
+            }}
+          >
+            Cart
+          </a>
         </Link>
       </li>
     </NavBarStyle>
