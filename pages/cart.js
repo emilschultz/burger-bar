@@ -4,6 +4,9 @@ import Link from "next/link";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import SectionGrid from "../components/SectionGrid";
+import RedCard from "../components/RedCard";
+import AddToCartButton from "../components/AddToCartButton";
 
 function Cart() {
   const cart = useCart();
@@ -32,18 +35,24 @@ function Cart() {
       <GlobalStyle />
       <NavBar />
       <h1>Cart</h1>
-      <ul>
-        {cart.productsInCart.map((item, index) => {
-          return (
-            <div key={Math.random() * (100 - 1)}>
-              <li>
+      <SectionGrid>
+        <RedCard>
+          {cart.productsInCart.map((item, index) => {
+            return (
+              <RedCard
+                style={{ margin: ".8rem" }}
+                key={Math.random() * (100 - 1)}
+              >
                 {item.quantity} x {item.title} = {item.price} kr
-                <button onClick={() => removeItem(index)}>Remove</button>
-              </li>
-            </div>
-          );
-        })}
-      </ul>
+                <AddToCartButton onClick={() => removeItem(index)}>
+                  Remove
+                </AddToCartButton>
+              </RedCard>
+            );
+          })}
+        </RedCard>
+      </SectionGrid>
+
       <p>Total: {cart.total} kr</p>
       <p>Items in cart: {cart.quantity}</p>
       <button onClick={emptyCart}>Empty cart</button>
