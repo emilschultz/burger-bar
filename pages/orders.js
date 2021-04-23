@@ -31,9 +31,9 @@ export default function Orders() {
   console.log("ORDERLIST:", orderList);
 
   // PUSH ORDER KEY/ID TO "deleveries" IN REALTIME DATABASE
-  const delivery = async (key) => {
+  const delivery = async (key, list) => {
     try {
-      await firebase.database().ref("delivery").push({ key });
+      await firebase.database().ref("delivery").push({ key, list });
     } catch (error) {
       setError(error.message);
       console.log("Noget gik galt med afsendingen");
@@ -79,7 +79,7 @@ export default function Orders() {
         >
           <button
             onClick={() => {
-              preparing(array.key);
+              preparing(array.key, array.list);
             }}
           >
             Preparing order

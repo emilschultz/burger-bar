@@ -2,12 +2,13 @@ import Head from "next/head";
 import Link from "next/link";
 import firebase from "../config/firebase";
 import { useAuth } from "../config/auth";
+import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useRouter } from "next/router";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
-import { useEffect } from "react";
+import Button from "../components/Button";
 
 export default function Home() {
   const cart = useCart();
@@ -34,7 +35,7 @@ export default function Home() {
       <GlobalStyle />
       <NavBar />
 
-      <main as="main">
+      <main style={{ marginLeft: "1rem" }}>
         <section>
           <h1>Hi!</h1>
           <h2>Welcome to Børre's Burgers</h2>
@@ -44,10 +45,10 @@ export default function Home() {
           </p>
 
           <Link href="/login">
-            <button>Login</button>
+            <Button>Login</Button>
           </Link>
           <Link href="/signup">
-            <button>Sign Up</button>
+            <Button>Sign Up</Button>
           </Link>
         </section>
       </main>

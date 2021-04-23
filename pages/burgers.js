@@ -9,6 +9,7 @@ import Heading from "../components/Heading";
 import RedCard from "../components/RedCard";
 import SectionGrid from "../components/SectionGrid";
 import AddToCartButton from "../components/AddToCartButton";
+import Button from "../components/Button";
 
 function Burgers() {
   const [burgers, setBurgers] = useState([]);
@@ -65,12 +66,14 @@ function Burgers() {
             );
           })}
         </ul>
-        <p>Total: {cart.total} kr</p>
-        <p>Items in cart: {cart.quantity}</p>
+        <p style={{ marginLeft: "1rem" }}>Total: {cart.total} kr</p>
+        <p style={{ marginLeft: "1rem" }}>Items in cart: {cart.quantity}</p>
 
         {/* <button onClick={clearCart}>Clear cart</button> */}
         <Link href="/cart">
-          <button>Go to cart</button>
+          <Button style={{ marginLeft: "1rem", marginBottom: "1rem" }}>
+            Go to cart
+          </Button>
         </Link>
       </main>
     </>

@@ -4,16 +4,13 @@ import Link from "next/link";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
-import SectionGrid from "../components/SectionGrid";
-import RedCard from "../components/RedCard";
-import AddToCartButton from "../components/AddToCartButton";
 
 function Cart() {
   const cart = useCart();
 
   const checkout = async () => {
     try {
-      await firebase.database().ref("orders").add(cart.productsInCart);
+      await firebase.database().ref("orders").push(cart.productsInCart);
     } catch (error) {
       console.log("Noget gik galt med bestillilngen");
     }
@@ -35,24 +32,18 @@ function Cart() {
       <GlobalStyle />
       <NavBar />
       <h1>Cart</h1>
-      <SectionGrid>
-        <RedCard>
-          {cart.productsInCart.map((item, index) => {
-            return (
-              <RedCard
-                style={{ margin: ".8rem" }}
-                key={Math.random() * (100 - 1)}
-              >
+      <ul>
+        {cart.productsInCart.map((item, index) => {
+          return (
+            <div key={Math.random() * (100 - 1)}>
+              <li>
                 {item.quantity} x {item.title} = {item.price} kr
-                <AddToCartButton onClick={() => removeItem(index)}>
-                  Remove
-                </AddToCartButton>
-              </RedCard>
-            );
-          })}
-        </RedCard>
-      </SectionGrid>
-
+                <button onClick={() => removeItem(index)}>Remove</button>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
       <p>Total: {cart.total} kr</p>
       <p>Items in cart: {cart.quantity}</p>
       <button onClick={emptyCart}>Empty cart</button>

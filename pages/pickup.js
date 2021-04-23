@@ -53,7 +53,7 @@ export default function pickup() {
     return (
       <OrderCard key={array.key}>
         <p>
-          <strong>{array.list.key}</strong>
+          <strong>{array.key}</strong>
         </p>
         );
       </OrderCard>
