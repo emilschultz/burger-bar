@@ -7,16 +7,10 @@ This project takes on a ficticious burger bar. It is an ordering system wich sen
 3. A screen for the kitchen staff to manage incoming orders.
 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![alt text](https://www.emilschultz.com/9c840a00f6d7c02e6947.jpg)
 
-## Getting Started
 
-First, run the development server:
+![alt text](https://www.emilschultz.com/054c111cc6f875286063.jpg)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![alt text](https://www.emilschultz.com/b26e955a518dadcc64d2.jpg)
