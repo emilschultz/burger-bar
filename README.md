@@ -10,7 +10,7 @@ This project takes on a ficticious burger bar. It is an ordering system wich sen
 ![alt text](https://www.emilschultz.com/9c840a00f6d7c02e6947.jpg)
 
 
-![alt text](https://www.emilschultz.com/054c111cc6f875286063.jpg)
-
-
 ![alt text](https://www.emilschultz.com/b26e955a518dadcc64d2.jpg)
+
+
+![alt text](https://www.emilschultz.com/054c111cc6f875286063.jpg)
