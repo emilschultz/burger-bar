@@ -31,25 +31,32 @@ function Cart() {
     <>
       <GlobalStyle />
       <NavBar />
-      <h1>Cart</h1>
-      <ul>
+      <Heading>Cart</Heading>
+      <ul style={{ marginLeft: "1rem" }}>
         {cart.productsInCart.map((item, index) => {
           return (
             <div key={Math.random() * (100 - 1)}>
               <li>
                 {item.quantity} x {item.title} = {item.price} kr
-                <button onClick={() => removeItem(index)}>Remove</button>
+                <Button
+                  onClick={() => removeItem(index)}
+                  style={{ margin: ".5rem", height: "1.25rem", width: "6%" }}
+                >
+                  Remove
+                </Button>
               </li>
             </div>
           );
         })}
       </ul>
-      <p>Total: {cart.total} kr</p>
-      <p>Items in cart: {cart.quantity}</p>
-      <button onClick={emptyCart}>Empty cart</button>
+      <p style={{ marginLeft: "1rem" }}>Total: {cart.total} kr</p>
+      <p style={{ marginLeft: "1rem" }}>Items in cart: {cart.quantity}</p>
+      <Button style={{ marginLeft: "1rem" }} onClick={emptyCart}>
+        Empty cart
+      </Button>
 
       <Link href="/pickup">
-        <button onClick={checkout}>Checkout</button>
+        <Button onClick={checkout}>Checkout</Button>
       </Link>
     </>
   );
