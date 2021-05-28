@@ -1,72 +1,148 @@
+import firebase from "../config/firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-import firebase from "../config/firebase";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
+import { object, string } from "yup";
+
+const schema = object().shape({
+  name: string().required("Please state your name"),
+  email: string().required("Please use a valid e-mail"),
+  password: string().required("Please "),
+});
 
 export default function signup() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
 
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const { register, handleSubmit, watch, errors } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    const { name, email, password } = data;
 
     try {
       const user = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
-      const uid = user.uid;
-      console.log("Du har lavet en bruger! tiløk");
-      console.log(uid);
-      router.push("/login");
+
+      user.user.updateProfile({ displayName: name });
     } catch (error) {
       setError(error.message);
-      console.log("Noget gik galt med oprettelsen af din bruger");
     }
   };
-
   return (
     <>
       <GlobalStyle />
       <NavBar />
 
-      <h1>Sign up here</h1>
-
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">E-mail</label>
+      <Heading>Sign up here</Heading>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ marginLeft: "1rem" }}>
+        <label htmlFor="name">Name:</label>
         <input
           type="text"
-          name="email"
-          placeholder="e-mail"
-          onChange={(event) => setEmail(event.target.value)}
+          name="name"
+          id="name"
+          placeholder="Name"
+          required
+          ref={register}
         />
-
-        <label htmlFor="password">Password</label>
+        <label htmlFor="email">E-mail:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="E-mail"
+          required
+          ref={register}
+        />
+        <label htmlFor="password">Password:</label>
         <input
           type="password"
           name="password"
-          placeholder="password"
-          onChange={(event) => setPassword(event.target.value)}
+          id="password"
+          placeholder="Password"
+          required
+          ref={register}
         />
-
-        <button type="submit">Create user</button>
-
-        <Link href="/">
-          <button type="button">Cancel</button>
-        </Link>
-
         <br />
+        {error && <p>{error}</p>}
 
         <Link href="/login">
-          <button>Do you already have a user? Log in</button>
+          <Button style={{ marginTop: "1rem" }} type="submit">
+            Create user
+          </Button>
+        </Link>
+
+        <Link href="/">
+          <Button style={{ marginTop: "1rem" }} type="button">
+            Cancel
+          </Button>
+        </Link>
+
+        <Link href="/login">
+          <Button style={{ width: "21.5%", marginTop: "1rem" }}>
+            Do you already have a user? Log in
+          </Button>
         </Link>
       </form>
     </>
   );
+
+  //   {
+  //     /* <form onSubmit={handleSubmit} style={{ marginLeft: "1rem" }}>
+  //       <label style={{ marginRight: ".5rem" }} htmlFor="email">
+  //         E-mail
+  //       </label>
+  //       <input
+  //         type="text"
+  //         name="email"
+  //         placeholder="e-mail"
+  //         onChange={(event) => setEmail(event.target.value)}
+  //         style={{ marginRight: "1rem" }}
+  //       />
+
+  //       <label style={{ marginRight: ".5rem" }} htmlFor="password">
+  //         Password
+  //       </label>
+  //       <input
+  //         type="password"
+  //         name="password"
+  //         placeholder="password"
+  //         onChange={(event) => setPassword(event.target.value)}
+  //         style={{ marginRight: "1rem" }}
+  //       />
+  //       <br />
+  //       <Button style={{ marginTop: "1rem" }} type="submit">
+  //         Create user
+  //       </Button>
+
+  //       <Link href="/">
+  //         <Button style={{ marginTop: "1rem" }} type="button">
+  //           Cancel
+  //         </Button>
+  //       </Link>
+
+  //       <br />
+
+  //       <Link href="/login">
+  //         <Button style={{ width: "21.5%", marginTop: "1rem" }}>
+  //           Do you already have a user? Log in
+  //         </Button>
+  //       </Link>
+  //     </form> */
+  //   }
+  //   {
+  //     /* </>
+  // ); */
+  //   }
 }

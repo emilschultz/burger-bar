@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-// import firebase from '../config/firebase';
+import firebase from "../config/firebase";
 import { useForm } from "react-hook-form";
-import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { useRouter } from "next/router";
+import { useCart } from "../context/CartContext";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
 
 const schema = object().shape({
   email: string().email("e-mail does not exist"),
@@ -14,51 +18,96 @@ const schema = object().shape({
 });
 
 export default function login() {
-  // const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState(null);
-  // const [error, setError] = useState(null);
+  const router = useRouter();
+  const cart = useCart();
+
+  const [error, setError] = useState(null);
 
   const { register, handleSubmit, watch, errors } = useForm({
     mode: "onChange",
-    defaultValues: {
-      email: "",
-    },
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data) => {
     console.log("Form data:", data);
-  };
+    const { email, password } = data;
 
-  useEffect(() => {
-    console.log("errors:", errors);
-  }, [errors]);
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      cart.productsInCart.lenght > 0
+        ? router.push("/cart")
+        : router.push("/burgers");
+    } catch (error) {
+      setError(error.message);
+      console.log("ERROR:", error.message);
+    }
+  };
 
   return (
     <>
       <GlobalStyle />
       <NavBar />
-      <h1>Login</h1>
+      <Heading>Login</Heading>
+      <div style={{ marginLeft: "1rem" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="email">E-mail:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            required
+            ref={register}
+          />
+          <label htmlFor="password">Password::</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+            ref={register}
+          />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email">E-mail</label>
-        <input type="text" name="email" placeholder="e-mail" ref={register} />
+          {error && <p>{error}</p>}
+          <Button type="submit">Login</Button>
+        </form>
+        <Link href="/">
+          <Button type="button">Cancel</Button>
+        </Link>
+      </div>
 
-        <label htmlFor="password">Password</label>
+      {/* <form style={{ marginLeft: "1rem" }} onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="email" style={{ marginRight: ".5rem" }}>
+          E-mail
+        </label>
+        <input
+          type="text"
+          name="email"
+          placeholder="e-mail"
+          ref={register}
+          style={{ marginRight: "1rem" }}
+        />
+
+        <label htmlFor="password" style={{ marginRight: ".5rem" }}>
+          Password
+        </label>
         <input
           type="password"
           placeholder="password"
           name="password"
           ref={register}
+          style={{ marginRight: "1rem" }}
         />
-        <p>{errors.email && errors.email.message}</p>
 
-        <button type="submit">Login</button>
+        <Button type="submit">Login</Button>
 
         <Link href="/">
-          <button type="button">Cancel</button>
+          <Button type="button">Cancel</Button>
         </Link>
-      </form>
+        <br />
+        {errors.email && <p>{errors.email.message}</p>}
+        {errors.password && <p>{errors.password.message}</p>}
+      </form> */}
     </>
   );
 }

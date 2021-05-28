@@ -6,10 +6,8 @@ import nookies from "nookies";
 const AuthContext = createContext({ user: null });
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const isAuthenticated = user !== null && !loading;
+  const [user, setUser] = useState();
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
@@ -17,28 +15,37 @@ export default function AuthProvider({ children }) {
         setUser(null);
         nookies.set(undefined, "token", null, { path: "/" });
       } else {
-        const token = await user.getIdToken();
+        const token = user.getIdToken();
         setUser(user);
         nookies.set(undefined, "token", token, { path: "/" });
       }
-      setLoading(false);
     });
   });
+
+  useEffect(() => {
+    if (user) {
+      let ref = firebase.firestore().collection("users").doc(user.uid);
+
+      ref.onSnapshot((docSnaphot) => {
+        let data = {
+          id: docSnaphot.id,
+          ...docSnaphot.data(),
+        };
+        setUserData(data);
+        console.log(userData);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const handle = setInterval(async () => {
       const user = firebase.auth().currentUser;
       if (user) await user.getIdToken(true);
     }, 10 * 60 * 1000);
-
     return clearInterval(handle);
   });
 
-  return (
-    <AuthContext.Provider value={{ user, loading, isAuthenticated }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => {
