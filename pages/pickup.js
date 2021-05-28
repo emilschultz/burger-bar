@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import GlobalStyle from "../components/GlobalStyle";
 import SectionGrid from "../components/SectionGrid";
 import OrderCard from "../components/RedCard";
-
+import Button from "../components/Button";
+import Heading from "../components/Heading";
 export default function pickup() {
   const [orderReady, setOrderReady] = useState([]);
   const [preparingOrder, setPreparingOrder] = useState([]);
@@ -76,14 +77,16 @@ export default function pickup() {
     <>
       <GlobalStyle />
 
-      <h1>Ready for pick up:</h1>
+      <Heading>Ready for pick up:</Heading>
       <SectionGrid>{readyForPickUp}</SectionGrid>
 
-      <h1>Preparing:</h1>
+      <Heading>Preparing:</Heading>
       <SectionGrid>{prepareing}</SectionGrid>
 
       <Link href="/">
-        <button>Return to home page</button>
+        <Button style={{ margin: "1rem", width: "97.5%" }}>
+          Return to home page
+        </Button>
       </Link>
     </>
   );

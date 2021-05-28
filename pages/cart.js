@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
 
 function Cart() {
   const cart = useCart();

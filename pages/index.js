@@ -1,23 +1,17 @@
 import Head from "next/head";
 import Link from "next/link";
 import firebase from "../config/firebase";
-import { useAuth } from "../config/auth";
 import { useEffect } from "react";
-import { useCart } from "../context/CartContext";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+// import { useAuth } from "../config/auth";
 
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../components/GlobalStyle";
 import Button from "../components/Button";
 
 export default function Home() {
-  const cart = useCart();
-
-  console.log("KURVEN:", cart);
-
   useEffect(async () => {
     const userSnapshot = await firebase.firestore().collection("users").get();
-
     const users = [];
     userSnapshot.forEach((doc) => {
       users.push(doc.data());
